@@ -1,0 +1,74 @@
+TrueSight v0.06
+2012/09/15
+##############################################
+
+Author:
+
+Yang Li
+
+yangli9@illinois.edu
+
+Check http://bioen-compbio.bioen.illinois.edu/TrueSight/ for more details
+
+##############################################
+
+All pre-computed 64bit binaries are included
+
+external programs:
+"bowtie" and "bowtie-build" from:
+
+http://bowtie-bio.sourceforge.net/index.shtml
+
+logistic regression "train" from:
+
+http://komarix.org/ac/lr/lrtrirls
+
+samtools are required and should be under usr default PATH
+
+##############################################
+
+Run on paired-end RNA-seq data:
+
+./truesight_pair.pl
+	-p/--thread		number of cores
+	-f      		[MANDATORY] input file name, fq_1 fq_2; if there are multiple files for fq_1/fq_2, they should be seperated by comma; All reads should have the same length and >= 36bp
+	-r/--bowtie-index	[MANDATORY] bowtie reference dir/name, thus bowtie index should be dir/name.*.ebwt, reference genome should also be located here, e.g. dir/name.fa; chromosome line for dir/name.fa should be clean and there is no space within it, such as ">XXXXX\n"
+	-v/--mismatch		mismatches (0-3)
+	-s/--segment-length     segment length (18-25)
+	-i/--min-intron-length
+	-I/--max-intron-length
+	-c/--canonical		if canonical
+	-o/--output		output dir, default is truesight_out
+	-h/--help	
+	--segment-name
+
+
+Run on single-end RNA-seq data:
+
+./truesight_single.pl
+	-p/--thread             number of cores
+	-f                      [MANDATORY] input file name; if there are multiple files, they should be seperated by comma; All reads should have the same length and >= 36bp
+	-r/--bowtie-index       [MANDATORY] bowtie reference dir/name, thus bowtie index should be dir/name.*.ebwt, reference genome should also be located here, e.g. dir/name.fa; chromosome line for dir/name.fa should be clean and there is no space within it, such as ">XXXXX\n"
+	-v/--mismatch           mismatches (0-3)
+	-s/--segment-length     segment length (18-25)
+	-o/--output             output dir, default is truesight_out
+	-i/--min-intron-length
+	-I/--max-intron-length
+	-h/--help       
+	--segment-name
+
+
+
+
+#############################################
+
+Output
+
+alignment.bam: 
+	sorted bam format alignment results.
+
+GapAli.junc:
+	infered junctions
+
+GapAli.sam:
+	Gapped alignment in sam format
